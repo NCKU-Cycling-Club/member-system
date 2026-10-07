@@ -72,3 +72,5 @@ Commit + push 後 GitHub Pages 會更新。
 - `config.js`：Worker URL（可公開）
 - `apps-script/Code.gs`：Google Apps Script 後端
 - `cloudflare-worker/worker.js`：API Proxy
+
+- Pages deploy trigger
