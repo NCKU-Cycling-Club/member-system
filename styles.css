@@ -1,0 +1,55 @@
+:root{--bg:#f5f7fb;--text:#18212f;--muted:#6b7280;--line:#e5e7eb;--brand:#5b3a91;--brand2:#ede9fe;--ok:#15803d;--warn:#b45309;--bad:#b91c1c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;color:var(--text)}
+header{padding:16px;background:var(--brand);color:#fff;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:20px}
+header .sub{margin-top:3px;font-size:12px;opacity:.85}
+main{max-width:860px;margin:auto;padding:14px 12px 96px}
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:8}
+nav button{border:0;background:#fff;padding:11px 2px 13px;font-size:12px;color:#4b5563}
+nav button.active{color:var(--brand);font-weight:800;background:#faf8ff}
+.page{display:none}.page.active{display:block}
+.card{background:#fff;border-radius:16px;padding:16px;margin:0 0 14px;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.hero{background:linear-gradient(135deg,#ede9fe,#fff);border:1px solid #ddd6fe}
+h2{font-size:19px;margin:0 0 10px}h3{font-size:15px;margin:14px 0 6px}
+label{display:block;font-size:13px;font-weight:800;margin:12px 0 5px}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:16px;font-family:inherit}
+input[type=color]{padding:2px;height:44px}
+input[type=file]{padding:8px;font-size:14px}
+textarea{min-height:76px;resize:vertical}
+.chk{display:flex;gap:8px;align-items:center;font-weight:600}.chk input{width:auto}
+.btn{display:block;width:100%;border:0;border-radius:11px;padding:12px;font-size:15px;font-weight:800;margin-top:10px;background:var(--brand);color:#fff}
+.btn.sec{background:var(--brand2);color:#4c1d95}
+.btn.danger{background:#fee2e2;color:var(--bad)}
+.btn.ghost{background:#f3f4f6;color:#374151}
+.btn.small{display:inline-block;width:auto;padding:7px 11px;font-size:13px;margin:6px 6px 0 0}
+.btn:disabled{opacity:.5}
+.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}
+.muted{color:var(--muted);font-size:13px}.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.pill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:12px;background:#f3f4f6;margin:2px;white-space:nowrap}
+.pill.ok{background:#dcfce7;color:#166534}.pill.warn{background:#fef3c7;color:#92400e}.pill.bad{background:#fee2e2;color:#991b1b}.pill.big2{background:#ede9fe;color:#5b21b6}
+.item{border:1px solid var(--line);border-radius:13px;padding:12px;margin:10px 0}
+.item.mine{border-color:#a78bfa;background:#faf8ff}
+.item.gone{background:#f9fafb;opacity:.85}
+.meta{font-size:13px;color:var(--muted);margin-top:4px}
+.between{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.big{font-size:24px;font-weight:900}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:7px}
+.hide{display:none!important}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.banner{width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px;background:#f3f4f6}
+.bikeimg{width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin:6px 0;background:#f3f4f6}
+.prev{width:100%;max-height:160px;object-fit:cover;border-radius:10px;margin-top:8px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.stat{background:#faf8ff;border:1px solid #ddd6fe;border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-size:26px;color:var(--brand)}
+.pre{white-space:pre-wrap;font-size:14px;margin:4px 0}
+.notice{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:9px 11px;font-size:13px;color:#92400e;margin:10px 0}
+.who{background:#faf8ff;border:1px solid #ddd6fe}
+.stars{color:#f59e0b;letter-spacing:1px}
+a{color:#5b21b6}
+#overlay{position:fixed;inset:0;background:#0007;z-index:30;padding:14px;overflow:auto}
+#overlay .sheet{max-width:620px;margin:24px auto}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;z-index:40;max-width:90%;display:none}
+#toast.bad{background:var(--bad)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:6px;border-bottom:1px solid var(--line);text-align:left}

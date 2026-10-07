@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>成大單車社｜社員系統</title>
+<link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
+</head>
+<body>
+<header>
+  <h1>🚲 <span id="clubName">成大單車社</span></h1>
+  <div class="sub">社員系統 v6-github</div>
+</header>
+
+<main>
+  <section id="home" class="page active">
+    <div id="profileSummary" class="card hero">載入中…</div>
+    <div class="card"><h2>活動簽到</h2><div id="checkinBox"></div></div>
+    <div class="card"><h2>近期活動</h2><div id="homeActs"></div></div>
+  </section>
+
+  <section id="activities" class="page">
+    <div class="card"><h2>活動報名</h2><div id="actList"></div></div>
+    <div class="card"><h2>行程回饋</h2><div id="fbBox"></div></div>
+  </section>
+
+  <section id="bikes" class="page">
+    <div class="card"><h2>待領車</h2><div id="myRes"></div></div>
+    <div class="card"><h2>我的借車</h2><div id="myLoans"></div></div>
+    <div class="card"><h2>社車一覽</h2><div id="bikeList"></div></div>
+  </section>
+
+  <section id="member" class="page">
+    <div class="card"><h2>我的社員空間</h2><div id="memberBox"></div></div>
+    <div class="card hide" id="historyCard"><h2>我參加過的活動</h2><div id="historyBox"></div></div>
+  </section>
+
+  <section id="admin" class="page">
+    <div class="card" id="adminLoginBox">
+      <h2>幹部後台</h2>
+      <h3>方法一：幹部 Gmail 驗證碼</h3>
+      <label>Gmail</label><input id="cadreEmail" type="email" autocomplete="email" placeholder="you@gmail.com">
+      <button class="btn sec" onclick="sendCode(this)">寄送驗證碼</button>
+      <div id="codeWrap" class="hide">
+        <label>6 位數驗證碼</label><input id="cadreCode" inputmode="numeric" maxlength="6">
+        <button class="btn" onclick="verifyCode(this)">驗證並登入</button>
+      </div>
+      <hr>
+      <h3>方法二：幹部密碼</h3>
+      <input id="adminPin" type="password" autocomplete="off" placeholder="幹部密碼">
+      <button class="btn ghost" onclick="adminLogin()">用密碼進入</button>
+    </div>
+
+    <div id="adminContent" class="hide">
+      <div class="card who"><div id="adminWho"></div></div>
+
+      <div class="card">
+        <h2>幹部工具</h2>
+        <button class="btn sec" onclick="rebuildAttendance(this)">更新 Excel「出席總表」</button>
+        <div class="muted" style="margin-top:6px">每位社員 × 每場活動的出席表，會寫在試算表的「出席總表」分頁。</div>
+      </div>
+
+      <div class="card">
+        <h2 id="aFormTitle">新增活動</h2>
+        <label>活動名稱</label><input id="aName">
+        <div class="row">
+          <div><label>類型</label><select id="aType"><option>例行活動</option><option>大型活動</option><option>社課</option><option>比賽</option><option>其他</option></select></div>
+          <div><label>日期</label><input id="aDate" type="date"></div>
+        </div>
+        <div class="row">
+          <div><label>集合時間</label><input id="aMeet" type="time"></div>
+          <div><label>預計結束</label><input id="aEnd" type="time"></div>
+          <div><label>最晚還車</label><input id="aReturn" type="time" value="23:59"></div>
+        </div>
+        <label>報名截止日（當天 24:00 前，可空白）</label><input id="aDeadline" type="date">
+        <label>集合地點</label><input id="aPlace">
+        <label>路線連結（Google Map / Velodash 等）</label><input id="aRoute" inputmode="url" placeholder="https://">
+        <div class="row">
+          <div><label>距離 km</label><input id="aDist" type="number"></div>
+          <div><label>人數上限</label><input id="aCap" type="number" placeholder="空白＝不限"></div>
+          <div><label>難度 1~5</label><input id="aDiff" type="number" min="1" max="5" step="1" placeholder="1~5"></div>
+        </div>
+        <div class="muted">難度輸入數字，社員看到的會是星星（例：2 → ★★☆☆☆）</div>
+        <div class="row">
+          <div><label>領騎</label><input id="aLeader" placeholder="姓名"></div>
+          <div><label>領騎手機</label><input id="aLeaderTel" inputmode="tel"></div>
+        </div>
+        <div class="row">
+          <div><label>押後</label><input id="aTail" placeholder="姓名"></div>
+          <div><label>押後手機</label><input id="aTailTel" inputmode="tel"></div>
+        </div>
+        <label>費用（空白＝不收費；幹部價空白會自動用社員價）</label>
+        <div class="row">
+          <div><input id="aPG" type="number" placeholder="一般價"></div>
+          <div><input id="aPM" type="number" placeholder="社員價"></div>
+          <div><input id="aPC" type="number" placeholder="幹部價"></div>
+        </div>
+        <label>活動說明（介紹）</label><textarea id="aDesc" placeholder="這條路線的特色、適合誰參加…"></textarea>
+        <label>注意事項</label><textarea id="aNotice" style="min-height:130px"></textarea>
+        <label>備註</label><textarea id="aNote"></textarea>
+        <label>活動照片</label><input id="aPhotoFile" type="file" accept="image/*" onchange="upActPhoto(this)">
+        <img id="aPhotoPrev" class="prev hide" alt="">
+        <label class="chk"><input type="checkbox" id="aOpenReg" checked> 開放報名</label>
+        <label class="chk"><input type="checkbox" id="aOpenBike" checked> 開放借車／裝備</label>
+        <button class="btn" onclick="saveActivity()">儲存活動</button>
+        <button class="btn ghost" onclick="resetActForm()">清除表單 / 改為新增</button>
+      </div>
+
+      <div class="card">
+        <h2>活動列表</h2>
+        <label class="chk"><input type="checkbox" id="showPast" onchange="renderAdmin()"> 顯示已結束的活動</label>
+        <div id="adminActs"></div>
+      </div>
+
+      <div class="card">
+        <h2>社車管理</h2>
+        <div id="adminBikes"></div>
+        <hr>
+        <h3 id="bFormTitle">新增社車</h3>
+        <label>車名</label><input id="bName">
+        <div class="row">
+          <div><label>類型</label><input id="bType" placeholder="公路車"></div>
+          <div><label>尺寸</label><input id="bSize" placeholder="M"></div>
+          <div><label>顏色</label><input id="bColor" type="color" value="#64748b"></div>
+        </div>
+        <label>狀態</label><select id="bStatus"><option>可借</option><option>待檢修</option><option>維修中</option></select>
+        <label>備註</label><input id="bNote">
+        <label>社車照片</label><input id="bPhotoFile" type="file" accept="image/*" onchange="upBikePhoto(this)">
+        <img id="bPhotoPrev" class="prev hide" alt="">
+        <label class="chk"><input type="checkbox" id="bActive" checked> 啟用（社員看得到）</label>
+        <button class="btn" onclick="saveBike()">儲存社車</button>
+        <button class="btn ghost" onclick="resetBikeForm()">清除表單 / 改為新增</button>
+      </div>
+
+      <div class="card"><h2>借出中</h2><div id="adminLoans"></div></div>
+      <div class="card"><h2>待處理車況</h2><div id="adminReports"></div></div>
+      <div class="card"><h2>社員管理</h2><div id="adminMembers"></div></div>
+    </div>
+  </section>
+</main>
+
+<nav>
+  <button class="active" data-page="home">首頁</button>
+  <button data-page="activities">活動</button>
+  <button data-page="bikes">社車</button>
+  <button data-page="member">我的</button>
+  <button data-page="admin">後台</button>
+</nav>
+
+<div id="toast"></div>
+<div id="overlay" class="hide"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
